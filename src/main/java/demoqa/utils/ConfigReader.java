@@ -17,7 +17,7 @@ public class ConfigReader {
    static {
         // static block только для переменных и трай кетч
        try {
-           String path = "C:\\Users\\hayan\\DemoQaWinter24\\src\\main\\resources\\app.properties";
+           String path = "src/main/resources/app.properties";
            FileInputStream fileInputStream = new FileInputStream(path);
            properties = new Properties();
            properties.load(fileInputStream);
