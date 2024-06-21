@@ -3,7 +3,7 @@ import demoqa.utils.ConfigReader;
 import org.testng.annotations.Test;
 
 public class OrangeTest extends BaseTest {
-    @Test
+    @Test(groups = {"Smoke","UI","1234"}, description = "CheckBoxTest")
     void testOrange(){
         browserHelper.open(ConfigReader.getValue("baseOrangeURL") + Orange.ADMIN.getOrange());
         orangePage.fillUpRegistration();

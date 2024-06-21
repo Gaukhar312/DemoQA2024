@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import java.sql.Driver;
 
 public class CheckboxTest extends BaseTest {
-    @Test
+    @Test(groups = {"Regression","SQL","1234"}, description = "CheckBoxTest")
      void testBox(){
         browserHelper.open(ConfigReader.getValue("baseURL") + Endpoints.CHECKBOX.getEndpoint());
          checkBox.fullUpCheckBox();

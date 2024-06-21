@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 
 public class PracticeFormTest extends BaseTest{
-    @Test
+    @Test(groups = {"Smoke","UI","4322"}, description = "PracticeFormTest")
 public void practiceFormTest(){
   browserHelper.open(ConfigReader.getValue("baseURL") + Endpoints.PRACTICEFORM.getEndpoint());
 

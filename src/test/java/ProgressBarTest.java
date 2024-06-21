@@ -4,7 +4,7 @@ import demoqa.utils.ConfigReader;
 import org.testng.annotations.Test;
 
 public class ProgressBarTest extends BaseTest {
-    @Test
+    @Test(groups = {"Regression","SQL","1235"}, description = "ProgressBarTest")
     public void progressTest() throws InterruptedException {
         browserHelper.open(ConfigReader.getValue("baseURL") + Endpoints.PROGRESSBAR.getEndpoint());
         webElementActions.click(progressBar.progressBarStart);
