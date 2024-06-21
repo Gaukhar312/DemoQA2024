@@ -1,5 +1,6 @@
 import demoqa.drivers.DriverManager;
 import demoqa.helper.BrowserHelper;
+import demoqa.helper.WebElementActions;
 import demoqa.pages.*;
 import demoqa.utils.RandomUtils;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +18,7 @@ protected PracticeFormPage practiceFormPage;
 protected ProgressBar progressBar;
     protected WebTablePage webTablePage;
     protected  OrangePage orangePage;
+    protected WebElementActions webElementActions;
 
     @BeforeClass(alwaysRun = true)
     public void setUp(){
@@ -29,6 +31,7 @@ protected ProgressBar progressBar;
         practiceFormPage = new PracticeFormPage();
         webTablePage = new WebTablePage();
         orangePage = new OrangePage();
+        webElementActions=new WebElementActions(driver);
     }
 
     @AfterClass(alwaysRun = true)

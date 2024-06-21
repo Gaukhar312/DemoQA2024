@@ -7,7 +7,7 @@ public class ProgressBarTest extends BaseTest {
     @Test
     public void progressTest() throws InterruptedException {
         browserHelper.open(ConfigReader.getValue("baseURL") + Endpoints.PROGRESSBAR.getEndpoint());
-        progressBar.progressBarStart.   click();
+        webElementActions.click(progressBar.progressBarStart);
 
         int max = 1000;
         for (int i = 0; i < max; i++) {
@@ -16,7 +16,7 @@ public class ProgressBarTest extends BaseTest {
             int a = Integer.parseInt(value);
 
             if (a >= 52){
-                progressBar.progressBarStart.click();
+                webElementActions.click(progressBar.progressBarStart);
                 System.out.println(a);
                 break;
             }
