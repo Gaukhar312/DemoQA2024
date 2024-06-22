@@ -2,19 +2,19 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64' // замените на ваш путь
-        MAVEN_HOME = '/usr/share/maven' // замените на ваш путь
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+        MAVEN_HOME = '/usr/share/maven'
     }
 
     parameters {
         choice(
             name: 'PROJECT',
-            choices: ['DemoQAWinter24'],
+            choices: ['DemoQaWinter24'],
             description: 'Choose project'
         )
         choice(
             name: 'TEST_SUITE',
-            choices: ['Regression', 'Smoke', 'E2E'],
+            choices: ['Smoke', 'Regression', 'E2E'],
             description: 'Test Suite'
         )
     }
@@ -23,7 +23,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out the code...'
-
+                git 'https://github.com/Gaukhar312/DemoQA2024.git' // замените на URL вашего репозитория
             }
         }
 
@@ -37,46 +37,23 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    def project = params.PROJECT ?: 'DemoQAWinter24'
-                    def testSuite = params.TEST_SUITE ?: 'Regression'
+                    def project = params.PROJECT ?: 'DemoQaWinter24'
+                    def testSuite = params.TEST_SUITE ?: 'Smoke'
+
                     echo "Running tests for project: ${project}, test suite: ${testSuite}"
-                    sh "mvn clean test -P${testSuite} -DtestCaseId=${project} -DfailIfNoTests=false"
+                    sh "${MAVEN_HOME}/bin/mvn clean test -P${testSuite} -DtestCaseId=${project} -DfailIfNoTests=false"
                 }
             }
             post {
                 always {
-                    echo 'Publishing TestNG results...'
-                    publishTestNGResults(testResultsPattern: '**/target/surefire-reports/testng-results.xml')
+                    echo 'Publishing Allure results...'
+                    allure([
+                        includeProperties: false,
+                        jdk: '17.0.3',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'target/allure-results']]
+                    ])
                 }
             }
         }
-
-        stage('Static Code Analysis') {
-            steps {
-                echo 'Running static code analysis...'
-                sh "${MAVEN_HOME}/bin/sonar-scanner"
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the application...'
-                sh 'ssh user@server "deploy_script.sh ${env.BUILD_ID}"'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline succeeded!'
-            // Отправить уведомление об успешном выполнении
-        }
-        failure {
-            echo 'Pipeline failed!'
-            // Отправить уведомление о неуспешном выполнении
-        }
-        always {
-            cleanWs()
-        }
-    }
-}
