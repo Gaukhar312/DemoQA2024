@@ -44,6 +44,7 @@ pipeline {
                     sh "${MAVEN_HOME}/bin/mvn clean test -P${testSuite} -DtestCaseId=${project} -DfailIfNoTests=false"
                 }
             }
+
             post {
                 always {
                     echo 'Publishing Allure results...'
@@ -56,4 +57,4 @@ pipeline {
                     ])
                 }
             }
-        }
+        }}
