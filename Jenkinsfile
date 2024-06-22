@@ -14,7 +14,7 @@ pipeline {
         )
         choice(
             name: 'TEST_SUITE',
-            choices: ['Smoke', 'Regression', 'E2E'],
+            choices: ['Smoke', 'Regression', 'E2E_Test'],
             description: 'Test Suite'
         )
     }
@@ -57,4 +57,4 @@ pipeline {
                     ])
                 }
             }
-        }}
+        }}}

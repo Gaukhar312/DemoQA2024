@@ -8,7 +8,7 @@ import java.util.List;
 
 public class WebTableTest extends BaseTest{
 
-    @Test(groups = {"E2E","4567"}, description = "WebTableTest")
+    @Test(groups = {"E2E_Test","4567"}, description = "WebTableTest")
     public  void tes123(){
         browserHelper.open(ConfigReader.getValue("baseURL") + Endpoints.WEBTABLE.getEndpoint());
         Employee employe = randomUtils.creatMocEmployee();
